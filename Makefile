@@ -1,14 +1,14 @@
 CFLAGS=-g -Wall -O3
 LDFLAGS=-g -O3
 
-all: test
-	./test
+all: src/test
+	./src/test
 
-test: test.o minmaxer.o
+src/test: src/test.o src/minmaxer.o
 
-test.o: test.c
+src/test.o: src/test.c
 
-minmaxer.o: minmaxer.c
+src/minmaxer.o: src/minmaxer.c
 
 clean:
-	rm -f *.o test
+	rm -f src/*.o test
