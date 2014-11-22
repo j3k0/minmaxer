@@ -14,7 +14,10 @@ typedef int (*MinMaxerEvaluator)(void *state);
 // The minmaxer will increase the size of the array and get back to you with more space.
 typedef unsigned int (*MinMaxerGenerator)(void *state, void *moves, unsigned int size);
 
-typedef void (*MinMaxerPlay)(void *inState, void *move, void *outState);
+// Play a move. Store the result in outState.
+// return +1 if it's now the same player's turn
+// return -1 if it's now the other player's turn
+typedef int (*MinMaxerPlay)(void *inState, void *move, void *outState);
 
 typedef struct {
     MinMaxerEvaluator evaluator;

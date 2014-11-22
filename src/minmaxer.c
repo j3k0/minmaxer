@@ -76,9 +76,9 @@ int mmBest(MinMaxer *mm, void *state, void *move, unsigned int maxDepth) {
         int maxEvalIndex = -1;
         if (maxDepth > 1) {
             for (unsigned int i = 0; i < nMoves; ++i) {
-                mm->play(state, mmMove(mm, movesBaseIndex + i), nextState);
+                int nextPlayer = mm->play(state, mmMove(mm, movesBaseIndex + i), nextState);
                 void *move = mmMovePush(mm);
-                int eval = -mmBest(mm, nextState, move, maxDepth - 1);
+                int eval = nextPlayer * mmBest(mm, nextState, move, maxDepth - 1);
                 if (eval > maxEval) {
                     maxEval = eval;
                     maxEvalIndex = movesBaseIndex + i;
@@ -90,8 +90,8 @@ int mmBest(MinMaxer *mm, void *state, void *move, unsigned int maxDepth) {
         }
         else {
             for (unsigned int i = 0; i < nMoves; ++i) {
-                mm->play(state, mmMove(mm, movesBaseIndex + i), nextState);
-                int eval = -mm->evaluator(nextState);
+                int nextPlayer = mm->play(state, mmMove(mm, movesBaseIndex + i), nextState);
+                int eval = nextPlayer * mm->evaluator(nextState);
                 if (eval > maxEval) {
                     maxEval = eval;
                     maxEvalIndex = movesBaseIndex + i;
