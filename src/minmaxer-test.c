@@ -13,7 +13,7 @@ typedef struct {
     int guess;
 } Move;
 
-static void play(void *pInState, void *pMove, void *pOutState) {
+static int play(void *pInState, void *pMove, void *pOutState) {
     Move *move = (Move*)pMove;
     State *inState = (State*)pInState;
     State *outState = (State*)pOutState;
@@ -24,6 +24,7 @@ static void play(void *pInState, void *pMove, void *pOutState) {
         outState->score[1 - outState->player] -= move->guess;
     outState->player = 1 - inState->player;
     outState->nPlayLeft = inState->nPlayLeft - 1;
+    return -1;
 }
 
 static unsigned int generator(void *pState, void *pMoves, unsigned int size) {
